@@ -12,6 +12,8 @@ import CoreData
 class CarsListViewController: UIViewController {
 
     private let tableView = UITableView()
+    
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var sourceArray = [Car]()
     
     override func viewDidLoad() {
@@ -25,8 +27,6 @@ class CarsListViewController: UIViewController {
         setupTableView()
         setTableViewConstrains()
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<Car> = Car.fetchRequest()
         
         do {
@@ -46,8 +46,6 @@ class CarsListViewController: UIViewController {
     }
     
     private func fetchRequest() {
-         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                let context = appDelegate.persistentContainer.viewContext
                 
                 let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
                 
@@ -92,5 +90,4 @@ extension CarsListViewController: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel?.text = carName
         return cell
     }
-    
 }

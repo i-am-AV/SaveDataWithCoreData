@@ -14,7 +14,6 @@
 		9570505124BBCF2A00E1F8CF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9570505024BBCF2A00E1F8CF /* SignUpViewController.swift */; };
 		95B9226C24BBDE7700A6C642 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9226B24BBDE7700A6C642 /* UserInfoViewController.swift */; };
 		95B9226E24BBDEAB00A6C642 /* CarsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9226D24BBDEAB00A6C642 /* CarsListViewController.swift */; };
-		95B9227024BC721900A6C642 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9226F24BC721900A6C642 /* CoreDataStack.swift */; };
 		95B9227E24BC7F1B00A6C642 /* Car+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9227A24BC7F1B00A6C642 /* Car+CoreDataClass.swift */; };
 		95B9227F24BC7F1B00A6C642 /* Car+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9227B24BC7F1B00A6C642 /* Car+CoreDataProperties.swift */; };
 		95B9228024BC7F1B00A6C642 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9227C24BC7F1B00A6C642 /* User+CoreDataClass.swift */; };
@@ -31,7 +30,6 @@
 		9570505024BBCF2A00E1F8CF /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		95B9226B24BBDE7700A6C642 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		95B9226D24BBDEAB00A6C642 /* CarsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsListViewController.swift; sourceTree = "<group>"; };
-		95B9226F24BC721900A6C642 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		95B9227A24BC7F1B00A6C642 /* Car+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Car+CoreDataClass.swift"; sourceTree = "<group>"; };
 		95B9227B24BC7F1B00A6C642 /* Car+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Car+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		95B9227C24BC7F1B00A6C642 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -100,19 +98,10 @@
 			path = CoreDataEntities;
 			sourceTree = "<group>";
 		};
-		95B9228224BC8AA700A6C642 /* CoreDataStack */ = {
-			isa = PBXGroup;
-			children = (
-				95B9226F24BC721900A6C642 /* CoreDataStack.swift */,
-			);
-			path = CoreDataStack;
-			sourceTree = "<group>";
-		};
 		95B9228324BC8AB900A6C642 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				95B9227924BC759400A6C642 /* CoreDataEntities */,
-				95B9228224BC8AA700A6C642 /* CoreDataStack */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -193,7 +182,6 @@
 				95B9226C24BBDE7700A6C642 /* UserInfoViewController.swift in Sources */,
 				95B9227E24BC7F1B00A6C642 /* Car+CoreDataClass.swift in Sources */,
 				95B9228024BC7F1B00A6C642 /* User+CoreDataClass.swift in Sources */,
-				95B9227024BC721900A6C642 /* CoreDataStack.swift in Sources */,
 				9570503A24BBCE8000E1F8CF /* AppDelegate.swift in Sources */,
 				95B9228124BC7F1B00A6C642 /* User+CoreDataProperties.swift in Sources */,
 				9570504424BBCE8100E1F8CF /* Lesson_10.xcdatamodeld in Sources */,

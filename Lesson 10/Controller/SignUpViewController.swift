@@ -20,6 +20,8 @@ final class SignUpViewController: UIViewController {
     private let passwordTextField = UITextField()
     private let signUpButton = UIButton()
     
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,9 +38,6 @@ final class SignUpViewController: UIViewController {
     }
     
     func usersCount() -> Int? {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
         
         do {
@@ -157,9 +156,6 @@ extension SignUpViewController {
             let login = loginTextField.text?.filter({ $0 != " "}), login != "",
             let password = passwordTextField.text?.filter({ $0 != " "}), password != "" {
             
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
-            
             saveUserInfo(name: name, surname: surname, login: login, password: password)
             
             show(UserInfoViewController(), sender: nil)
@@ -169,9 +165,6 @@ extension SignUpViewController {
     }
     
     private func saveUserInfo(name: String, surname: String, login: String, password: String) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
         guard let entity = NSEntityDescription.entity(forEntityName: "User", in: context) else {
             return
         }
@@ -184,7 +177,6 @@ extension SignUpViewController {
         
         do {
             try context.save()
-            print(userObject)
         } catch {
             print(error.localizedDescription)
         }

@@ -14,6 +14,8 @@ class UserInfoViewController: UIViewController {
     private let userInfoLabel = UILabel()
     private let showCarsButton = UIButton()
     
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,8 +34,6 @@ class UserInfoViewController: UIViewController {
 extension UserInfoViewController {
     
     private func fetchRequest() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
         
         let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
         
@@ -71,18 +71,15 @@ extension UserInfoViewController {
                                     
                                     print("Added car \(String(describing: textField.text!)) in Core data")
                                     
-                                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                                    let context = appDelegate.persistentContainer.viewContext
-                                    
-                                    guard let entity = NSEntityDescription.entity(forEntityName: "Car", in: context) else {
+                                    guard let entity = NSEntityDescription.entity(forEntityName: "Car", in: self.context) else {
                                         return
                                     }
                                     
-                                    let carObject = Car(entity: entity, insertInto: context)
+                                    let carObject = Car(entity: entity, insertInto: self.context)
                                     carObject.name = textField.text
                                     
                                     do {
-                                        try context.save()
+                                        try self.context.save()
                                         print(carObject)
                                     } catch {
                                         print(error.localizedDescription)
