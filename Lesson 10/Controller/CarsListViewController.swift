@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class CarsListViewController: UIViewController {
 
     private let tableView = UITableView()
+    private var sourceArray = [Car]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,9 +20,43 @@ class CarsListViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "Cars"
         
+        view.addSubview(tableView)
+        
         setupTableView()
         setTableViewConstrains()
-        view.addSubview(tableView)
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<Car> = Car.fetchRequest()
+        
+        do {
+            let car = try context.fetch(fetchRequest)
+            sourceArray = car
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+        
+    }
+    
+    private func fetchRequest() {
+         let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let context = appDelegate.persistentContainer.viewContext
+                
+                let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+                
+                do {
+                    let user = try context.fetch(fetchRequest)
+                    print(user)
+                } catch {
+                    print(error.localizedDescription)
+                }
     }
 }
 
@@ -45,14 +81,16 @@ extension CarsListViewController {
 
 extension CarsListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        sourceArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = "\(indexPath.row)"
+        guard let carName = sourceArray[indexPath.row].name else {
+            return cell
+        }
+        cell.textLabel?.text = carName
         return cell
     }
-
-
+    
 }

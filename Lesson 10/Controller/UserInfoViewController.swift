@@ -7,24 +7,92 @@
 //
 
 import UIKit
+import CoreData
 
 class UserInfoViewController: UIViewController {
-
+    
     private let userInfoLabel = UILabel()
     private let showCarsButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .white
-        navigationItem.title = "User Info"
+        
+        configNavigation()
         
         allSetups()
         allConstraints()
+        
+        fetchRequest()
+        
     }
 }
 
 extension UserInfoViewController {
+    
+    private func fetchRequest() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+        
+        do {
+            let user = try context.fetch(fetchRequest)
+            
+            if let name = user.first?.name,
+               let surname = user.first?.surname,
+               let login = user.first?.login,
+                let password = user.first?.password {
+                userInfoLabel.text = "\(name)\n\(surname)\n\(login)\n\(password)\n"
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func configNavigation() {
+        navigationItem.title = "User Info"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self,
+                                                            action: #selector(addTapped))
+    }
+    
+    @objc private func addTapped() {
+        let alert = UIAlertController(title: "Add",
+                                      message: nil,
+                                      preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "Name"
+        }
+        let action = UIAlertAction(title: "Add",
+                                   style: .default) { (action) in
+                                    guard let textField = alert.textFields?.first else { return }
+                                    
+                                    print("Added car \(String(describing: textField.text!)) in Core data")
+                                    
+                                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                                    let context = appDelegate.persistentContainer.viewContext
+                                    
+                                    guard let entity = NSEntityDescription.entity(forEntityName: "Car", in: context) else {
+                                        return
+                                    }
+                                    
+                                    let carObject = Car(entity: entity, insertInto: context)
+                                    carObject.name = textField.text
+                                    
+                                    do {
+                                        try context.save()
+                                        print(carObject)
+                                    } catch {
+                                        print(error.localizedDescription)
+                                    }
+                                    
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
     
     private func allSetups() {
         setupUserInfoLabel()
@@ -32,9 +100,9 @@ extension UserInfoViewController {
     }
     
     private func allConstraints() {
-           setuserInfoLabelConstraints()
-           setSignUpButtonConstraints()
-       }
+        setuserInfoLabelConstraints()
+        setSignUpButtonConstraints()
+    }
     
     
     private func setupUserInfoLabel() {
